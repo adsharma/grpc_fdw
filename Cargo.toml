@@ -1,7 +1,7 @@
 [package]
 name = "grpc_fdw"
 version = "0.0.0"
-edition = "2018"
+edition = "2021"
 authors = ["Simon Thörnqvist <simon.thornqvist@gmail.com>"]
 
 [lib]
@@ -16,9 +16,9 @@ pg13 = ["pgx/pg13", "pgx-tests/pg13" ]
 pg_test = []
 
 [dependencies]
-pgx = "0.1.18"
-pgx-fdw = { git = "https://github.com/drowzy/pgx_fdw.git" }
-pgx-macros = "0.1.18"
+pgx = "~0.5.6"
+pgx-fdw = { path = "../pgx_fdw" }
+pgx-macros = "~0.5.6"
 tonic = "0.4"
 prost = "0.7"
 prost-types = "0.7.0"
@@ -30,7 +30,7 @@ tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
 tonic-build = "0.4"
 
 [dev-dependencies]
-pgx-tests = "0.1.18"
+pgx-tests = "~0.5.6"
 
 [profile.dev]
 panic = "unwind"
