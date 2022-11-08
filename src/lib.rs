@@ -77,7 +77,7 @@ impl pgx_fdw::ForeignData for GRPCFdw {
     }
 
     fn execute(&mut self, desc: &PgTupleDesc) -> Self::RowIterator {
-        let mut client = PgBox::<client::Client>::from_pg(self.client);
+        let mut client = unsafe { PgBox::<client::Client>::from_pg(self.client) };
         let request = tonic::Request::new(client::pg::ExecuteRequest {
             table: self.table_name.clone(),
             tupdesc: tupdesc_into_map(desc),
@@ -89,7 +89,7 @@ impl pgx_fdw::ForeignData for GRPCFdw {
     }
 
     fn insert(&self, desc: &PgTupleDesc, row: Vec<pgx_fdw::Tuple>) -> Option<Vec<pgx_fdw::Tuple>> {
-        let mut client = PgBox::<client::Client>::from_pg(self.client);
+        let mut client = unsafe { PgBox::<client::Client>::from_pg(self.client) };
         let request = tonic::Request::new(client::pg::InsertRequest {
             table: self.table_name.clone(),
             tupdesc: tupdesc_into_map(desc),
@@ -106,7 +106,7 @@ impl pgx_fdw::ForeignData for GRPCFdw {
         row: Vec<pgx_fdw::Tuple>,
         indices: Vec<pgx_fdw::Tuple>,
     ) -> Option<Vec<pgx_fdw::Tuple>> {
-        let mut client = PgBox::<client::Client>::from_pg(self.client);
+        let mut client = unsafe { PgBox::<client::Client>::from_pg(self.client) };
         let request = tonic::Request::new(client::pg::UpdateRequest {
             table: self.table_name.clone(),
             tupdesc: tupdesc_into_map(desc),
@@ -123,7 +123,7 @@ impl pgx_fdw::ForeignData for GRPCFdw {
         desc: &PgTupleDesc,
         tuples: Vec<pgx_fdw::Tuple>,
     ) -> Option<Vec<pgx_fdw::Tuple>> {
-        let mut client = PgBox::<client::Client>::from_pg(self.client);
+        let mut client = unsafe { PgBox::<client::Client>::from_pg(self.client) };
         let request = tonic::Request::new(client::pg::DeleteRequest {
             table: self.table_name.clone(),
             tupdesc: tupdesc_into_map(desc),

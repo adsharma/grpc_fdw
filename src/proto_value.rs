@@ -34,9 +34,9 @@ impl<'a> From<&'a JsonValue> for ProtoValue {
 }
 
 impl ProtoValue {
-    fn from_datum<T: FromDatum>(datum: &Option<pg_sys::Datum>, typoid: &PgOid) -> Option<T> {
+    fn from_datum<T: FromDatum>(datum: &Option<pg_sys::Datum>, _typoid: &PgOid) -> Option<T> {
         match datum {
-            Some(d) => unsafe { T::from_datum(*d, false, typoid.value()) },
+            Some(d) => unsafe { T::from_datum(*d, false) },
             None => None,
         }
     }
