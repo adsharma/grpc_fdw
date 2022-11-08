@@ -135,8 +135,8 @@ impl pgx_fdw::ForeignData for GRPCFdw {
     }
 }
 
-/// ```sql
-/// CREATE FUNCTION grpc_fdw_handler() RETURNS fdw_handler LANGUAGE c AS 'MODULE_PATHNAME', 'grpc_fdw_handler_wrapper';
+/// ```pgxsql
+/// CREATE FUNCTION @FUNCTION_NAME@() RETURNS fdw_handler LANGUAGE c AS @MODULE_PATHNAME@, '@FUNCTION_NAME@_wrapper';
 /// ```
 #[pg_extern]
 fn grpc_fdw_handler() -> pg_sys::Datum {
